@@ -2,15 +2,27 @@
   "name": "merge-csv",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anurg/merge-csv.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anurg/merge-csv/issues"
+  },
+  "homepage": "https://github.com/anurg/merge-csv#readme",
   "description": "",
   "dependencies": {
-    "csv-parser": "^3.0.0",
-    "csv-stringify": "^6.5.1"
+    "@langchain/community": "^0.3.40",
+    "@langchain/core": "^0.3.44",
+    "@langchain/langgraph": "^0.2.64",
+    "@langchain/openai": "^0.5.5",
+    "dotenv": "^16.5.0"
   }
 }
