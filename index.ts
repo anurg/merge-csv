@@ -4,16 +4,25 @@ const menu = [
     { name: "Hawaiian", price: 10 },
     { name: "Veggie", price: 9 },
 ]
+type Pizza = {
+    name: string
+    price: number
+}
+type Order = {
+    Id:number
+    pizza : Pizza
+    status : string
+}
 
 let cashInRegister : number = 100
 let nextOrderId : number = 1
-const orderQueue = []
+const orderQueue : Order = []
 
 function addNewPizza(pizzaObj) {
     menu.push(pizzaObj)
 }
 
-function placeOrder(pizzaName) {
+function placeOrder(pizzaName : string) {
     const selectedPizza = menu.find(pizzaObj => pizzaObj.name === pizzaName)
     cashInRegister += selectedPizza.price
     const newOrder = { id: nextOrderId++, pizza: selectedPizza, status: "ordered" }
