@@ -1,26 +1,32 @@
 
 type Pizza = {
+    id:number
     name: string
     price: number
 }
 type Order = {
-    Id:number
+    id:number
     pizza : Pizza
-    status : string
+    status : "ordered" | "completed"
 }
-
+let nextPizzaId = 1
 const menu : Pizza[] = [
-    { name: "Margherita", price: 8 },
-    { name: "Pepperoni", price: 10 },
-    { name: "Hawaiian", price: 10 },
-    { name: "Veggie", price: 9 },
+    { id:nextPizzaId++, name: "Margherita", price: 8 },
+    { id:nextPizzaId++, name: "Pepperoni", price: 10 },
+    { id:nextPizzaId++, name: "Hawaiian", price: 10 },
+    { id:nextPizzaId++, name: "Veggie", price: 9 },
 ]
 
 let cashInRegister : number = 100
 let nextOrderId : number = 1
 const orderQueue : Order[]  = []
 
-function addNewPizza(pizzaObj : Pizza) {
+function addNewPizza(name:string, price:number) {
+    const pizzaObj = {
+        id:nextPizzaId++,
+        name:name,
+        price:price
+    }
     menu.push(pizzaObj)
 }
 
@@ -37,14 +43,18 @@ function placeOrder(pizzaName : string) {
 }
 
 function completeOrder(orderId : number) {
-    let order = orderQueue.find(order => order.id === orderId)
+    let order : Order = orderQueue.find(order => order.id === orderId)
+    if (!order) {
+        console.error(`${orderId} does not exist`)
+        return
+    }
     order.status = "completed"
     return order
 }
 
-addNewPizza({ name: "Chicken Bacon Ranch", price: 12 })
+addNewPizza({name: "Chicken Bacon Ranch", price: 12 })
 addNewPizza({ name: "BBQ Chicken", price: 12 })
-addNewPizza({ name: "Spicy Sausage", price: 11 })
+addNewPizza({name: "Spicy Sausage", price: 11 })
 
 placeOrder("Chicken Bacon Ranch")
 completeOrder(1)
@@ -52,3 +62,52 @@ completeOrder(1)
 console.log("Menu:", menu)
 console.log("Cash in register:", cashInRegister)
 console.log("Order queue:", orderQueue)
+
+let myName : "Bob" = "Bob"
+const myName1 : "Bob" = "Bob"
+type UserRole = "guest" | "member" | "admin"
+
+let userRole : UserRole = "guest"
+type User = {
+    name : string
+    role: "guest" | "member" | "admin"
+}
+
+let user : User = {
+    name : "Anurag",
+    role : "admin"
+}
+
+let users : User[] = [
+    {name : "john_doe",role : "admin"},
+    {name : "jane_doe",role : "member"},
+    {name : "guest_user",role : "guest"}
+]
+
+export function getPizzaDetails(identifier : string | number ) {
+    let pizza : Pizza
+    if (typeof (identifier) === "string") {
+        // pizza = menu.find( pizza => pizza.name.toLowerCase() === identifier.toLowerCase())
+        pizza = menu.find( pizza => pizza.name === identifier)
+    } else if (typeof (identifier) === "number") {
+        pizza = menu.find( pizza => pizza.id === identifier)
+    } else {
+        throw new Error("Identifier should be string or number")
+    }
+    return `Pizza Name: ${pizza.name} Pizza Price: ${pizza.price}`
+}
+console.log(getPizzaDetails(7))
+console.log(getPizzaDetails("bbq chicken"))
+
+function fetchUserDetails(username:string) : User {
+    const user = users.find(user=>user.name === username)
+    if (!user) {
+        throw new Error(`${username} does not exist`)
+    }
+    return user
+}
+
+console.log(fetchUserDetails("john_doe")?.role)
+
+let myVar  = 1
+myVar = "Anurag"
